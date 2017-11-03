@@ -1,5 +1,6 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose'); //mongoose odm
 
 const app = express();
@@ -23,6 +24,10 @@ app.engine('handlebars', exphbs({
   defaultLayout: 'main'
 }));
 app.set('view engine', 'handlebars');
+
+// Body Parser
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // How middleware works
 app.use((req, res, next) => {
@@ -49,6 +54,11 @@ app.get('/about', (req, res) => {
 // Add idea form
 app.get("/ideas/add", (req, res) => {
   res.render('ideas/add');
+});
+
+// Process form
+app.post('/ideas', (req,res) => {
+  res.send('ok');
 });
 
 const port = 5000;
