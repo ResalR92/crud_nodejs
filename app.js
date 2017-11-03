@@ -100,6 +100,18 @@ app.post('/ideas', (req,res) => {
   }
 });
 
+// Edit idea form
+app.get("/ideas/edit/:id", (req, res) => {
+  Idea.findOne({
+    _id: req.params.id
+  })
+  .then(idea => {
+    res.render('ideas/edit', {
+      idea : idea
+    });
+  })
+});
+
 const port = 5000;
 
 app.listen(port, () => {
