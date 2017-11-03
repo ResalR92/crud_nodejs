@@ -76,7 +76,16 @@ app.post('/ideas', (req,res) => {
       details : req.body.details
     });
   } else {
-    res.send('passed');
+    // res.send('passed');
+    const newUser = {
+      title : req.body.title,
+      details : req.body.details
+    }
+    new Idea(newUser) // model
+      .save()
+      .then(idea => {
+        res.redirect('/ideas');
+      });
   }
 });
 
