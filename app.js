@@ -135,6 +135,17 @@ app.put('/ideas/:id', (req,res) => {
   });
 });
 
+// Delete Idea
+app.delete('/ideas/:id', (req,res) => {
+  // res.send('DELETE');
+  Idea.remove({
+    _id : req.params.id
+  })
+  .then(() => {
+    res.redirect('/ideas');
+  });
+})
+
 const port = 5000;
 
 app.listen(port, () => {
