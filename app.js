@@ -20,7 +20,7 @@ app.use((req, res, next) => {
 app.get('/', (req, res) => {
   // console.log(req.name);
   // res.send('INDEX');
-  const title = 'Welcome1';
+  const title = 'Welcome';
   // res.render('index');
   res.render('index', {
     title: title
