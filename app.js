@@ -5,6 +5,7 @@ const methodOverride = require("method-override"); //update
 const flash = require('connect-flash');
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const passport = require('passport');
 const mongoose = require('mongoose'); //mongoose odm
 
 const app = express();
@@ -12,6 +13,9 @@ const app = express();
 // Load routes
 const ideas = require('./routes/ideas');
 const users = require('./routes/users');
+
+// Passport config
+require('./config/passport')(passport);
 
 // Map global promise - get rid of warning - deprecated promise
 mongoose.Promise = global.Promise;
