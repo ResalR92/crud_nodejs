@@ -2,12 +2,15 @@ const express = require('express');
 const mongoose = require("mongoose");
 const router = express.Router();
 
+// Load helpers
+const {ensureAuthenticated} = require('../helpers/auth');
+
 // Load Idea Model
 require('../models/Idea');
 const Idea = mongoose.model('ideas');
 
 // Idea Index Page
-router.get('/', (req, res) => {
+router.get('/', ensureAuthenticated, (req, res) => {
   Idea.find({})
   .sort({date:'desc'})
   .then(ideas => {
@@ -18,12 +21,12 @@ router.get('/', (req, res) => {
 });
 
 // Add idea form
-router.get("/add", (req, res) => {
+router.get("/add", ensureAuthenticated, (req, res) => {
   res.render('ideas/add');
 });
 
 // Process form
-router.post('/', (req,res) => {
+router.post('/', ensureAuthenticated, (req,res) => {
   // console.log(req.body);
   // res.send('ok');
 
@@ -57,7 +60,7 @@ router.post('/', (req,res) => {
 });
 
 // Edit idea form
-router.get("/edit/:id", (req, res) => {
+router.get("/edit/:id",ensureAuthenticated, (req, res) => {
   Idea.findOne({
     _id: req.params.id
   })
@@ -69,7 +72,7 @@ router.get("/edit/:id", (req, res) => {
 });
 
 // Edit Form process
-router.put('/:id', (req,res) => {
+router.put('/:id', ensureAuthenticated, (req,res) => {
   // res.send('PUT');
   Idea.findOne({
     _id : req.params.id
@@ -88,7 +91,7 @@ router.put('/:id', (req,res) => {
 });
 
 // Delete Idea
-router.delete('/:id', (req,res) => {
+router.delete('/:id', ensureAuthenticated, (req,res) => {
   // res.send('DELETE');
   Idea.remove({
     _id : req.params.id
