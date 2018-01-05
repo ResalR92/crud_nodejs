@@ -6,5 +6,13 @@ module.exports = {
       req.flash('error_msg', 'Not Authorized');
       res.redirect('/users/login');
     }
+  },
+
+  ensureLogged : function (req, res, next) {
+    if(!req.isAuthenticated()) {
+        return next();
+    } else {
+        res.redirect('/ideas');
+    }
   }
 }

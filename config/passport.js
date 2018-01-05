@@ -6,7 +6,7 @@ const bcrypt = require('bcryptjs');
 const User = mongoose.model('users');
 
 module.exports = function(passport) {
-  // define
+  // define local strategy
   passport.use(new LocalStrategy({usernameField:'email'},(email,password,done) => {
     // console.log(email); // make sure connect to local strategy
     // Match User
